@@ -11,8 +11,6 @@ import 'package:unittest/unittest.dart';
 
 import '../lib/protoc.dart' show MessageGenerator;
 
-import 'test_util.dart';
-
 void main() {
   test('testReservedNamesList', () {
     Set<String> names = new Set<String>();

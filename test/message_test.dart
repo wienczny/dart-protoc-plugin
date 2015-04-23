@@ -5,7 +5,6 @@
 
 library message_test;
 
-import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
 import 'test_util.dart';

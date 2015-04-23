@@ -5,12 +5,10 @@
 
 library validate_fail_test;
 
-import 'dart:typed_data';
-
+import 'package:fixnum/fixnum.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
-import '../out/protos/google/protobuf/unittest_import.pb.dart';
 import '../out/protos/google/protobuf/unittest.pb.dart';
 
 // [ArgumentError] in production mode, [TypeError] in checked.
