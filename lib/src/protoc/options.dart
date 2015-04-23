@@ -9,9 +9,8 @@ part of protoc;
 /// key-value pair ("name=value"). For each option "name", it looks up whether a
 /// [SingleOptionParser] exists in [parsers] and delegates the actual parsing of
 /// the option to it. Returns `true` if no errors were reported.
-bool genericOptionsParser(
-    CodeGeneratorRequest request, CodeGeneratorResponse response,
-    Map<String, SingleOptionParser> parsers) {
+bool genericOptionsParser(CodeGeneratorRequest request,
+    CodeGeneratorResponse response, Map<String, SingleOptionParser> parsers) {
   var parameter = request.parameter != null ? request.parameter : '';
   var options = parameter.trim().split(',');
   var map = <String, String>{};
@@ -75,7 +74,9 @@ GenerationOptions parseGenerationOptions(
     [Map<String, SingleOptionParser> parsers]) {
   var fieldNameOptionParser = new FieldNameOptionParser();
   var map = {};
-  if (parsers != null) parsers.forEach((k, v) { map[k] = v; });
+  if (parsers != null) parsers.forEach((k, v) {
+    map[k] = v;
+  });
   map['field_name'] = fieldNameOptionParser;
   if (genericOptionsParser(request, response, map)) {
     return new GenerationOptions(fieldNameOptionParser.mappings);

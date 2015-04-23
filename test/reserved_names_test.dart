@@ -18,20 +18,20 @@ void main() {
     Set<String> names = new Set<String>();
     fillConflictingNames(mirrors.ClassMirror cls) {
       String className = mirrors.MirrorSystem.getName(cls.simpleName);
-      names.addAll(
-          cls
-          .declarations
-          .values
-          .where((decl) => !decl.isPrivate && decl is !mirrors.VariableMirror)
-          .map((m) => mirrors.MirrorSystem.getName(m.simpleName))
-          .map((n) => n.startsWith(className + '.')
-                      ? n.substring(className.length + 1) : n)
-          .toList());
+      names
+          .addAll(cls.declarations.values
+              .where(
+                  (decl) => !decl.isPrivate && decl is! mirrors.VariableMirror)
+              .map((m) => mirrors.MirrorSystem.getName(m.simpleName))
+              .map((n) => n.startsWith(className + '.')
+                  ? n.substring(className.length + 1)
+                  : n)
+              .toList());
     }
 
-    var cls = mirrors.currentMirrorSystem()
-        .libraries[Uri.parse('package:protobuf/protobuf.dart')]
-        .declarations[#GeneratedMessage];
+    var cls = mirrors.currentMirrorSystem().libraries[
+        Uri.parse('package:protobuf/protobuf.dart')].declarations[
+        #GeneratedMessage];
     do {
       fillConflictingNames(cls);
       cls = cls.superclass;

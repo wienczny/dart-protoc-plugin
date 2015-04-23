@@ -34,20 +34,21 @@ class PhoneType extends ProtobufEnum {
 
 ''';
     EnumDescriptorProto ed = new EnumDescriptorProto()
-        ..name = 'PhoneType'
-        ..value.addAll([
-            new EnumValueDescriptorProto()
-                ..name = 'MOBILE'
-                ..number = 0,
-            new EnumValueDescriptorProto()
-                ..name = 'HOME'
-                ..number = 1,
-            new EnumValueDescriptorProto()
-                ..name = 'WORK'
-                ..number = 2,
-            new EnumValueDescriptorProto()
-                ..name = 'BUSINESS'
-                ..number = 2]);
+      ..name = 'PhoneType'
+      ..value.addAll([
+        new EnumValueDescriptorProto()
+          ..name = 'MOBILE'
+          ..number = 0,
+        new EnumValueDescriptorProto()
+          ..name = 'HOME'
+          ..number = 1,
+        new EnumValueDescriptorProto()
+          ..name = 'WORK'
+          ..number = 2,
+        new EnumValueDescriptorProto()
+          ..name = 'BUSINESS'
+          ..number = 2
+      ]);
     MemoryWriter buffer = new MemoryWriter();
     IndentingWriter writer = new IndentingWriter('  ', buffer);
     var options = parseGenerationOptions(

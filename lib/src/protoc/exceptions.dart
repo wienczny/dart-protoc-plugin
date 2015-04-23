@@ -7,8 +7,7 @@ part of protoc;
 class InvalidDefaultValue implements Exception {
   final String message;
 
-  InvalidDefaultValue.double(String fieldName, String invalidValue) : message =
-      'InvalidDefaultValue: protoc found invalid default value ($invalidValue)'
+  InvalidDefaultValue.double(String fieldName, String invalidValue)
+      : message = 'InvalidDefaultValue: protoc found invalid default value ($invalidValue)'
       ' for the double field $fieldName';
 }
-

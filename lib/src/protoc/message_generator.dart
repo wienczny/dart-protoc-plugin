@@ -9,27 +9,80 @@ const String SP = ' ';
 class MessageGenerator extends ProtobufContainer {
   // List of Dart language reserved words in names which cannot be used in a
   // subclass of GeneratedMessage.
-  static final List<String> reservedWords =
-      ['assert', 'break', 'case', 'catch', 'class', 'const', 'continue',
-       'default', 'do', 'else', 'enum', 'extends', 'false', 'final',
-       'finally', 'for', 'if', 'in', 'is', 'new', 'null', 'rethrow', 'return',
-       'super', 'switch', 'this', 'throw', 'true', 'try', 'var', 'void',
-       'while', 'with'];
+  static final List<String> reservedWords = [
+    'assert',
+    'break',
+    'case',
+    'catch',
+    'class',
+    'const',
+    'continue',
+    'default',
+    'do',
+    'else',
+    'enum',
+    'extends',
+    'false',
+    'final',
+    'finally',
+    'for',
+    'if',
+    'in',
+    'is',
+    'new',
+    'null',
+    'rethrow',
+    'return',
+    'super',
+    'switch',
+    'this',
+    'throw',
+    'true',
+    'try',
+    'var',
+    'void',
+    'while',
+    'with'
+  ];
 
   // List of names which cannot be used in a subclass of GeneratedMessage.
-  static final List<String> reservedNames =
-    ['hashCode', 'noSuchMethod','runtimeType', 'toString',
-     'fromBuffer', 'fromJson', 'hasRequiredFields', 'isInitialized',
-     'clear', 'getTagNumber', 'check',
-     'writeToBuffer', 'writeToCodedBufferWriter',
-     'mergeFromCodedBufferReader', 'mergeFromBuffer',
-     'writeToJson', 'mergeFromJson',
-     'writeToJsonMap', 'mergeFromJsonMap',
-     'addExtension', 'getExtension', 'setExtension',
-     'hasExtension', 'clearExtension',
-     'getField', 'setField', 'hasField', 'clearField',
-     'extensionsAreInitialized', 'mergeFromMessage', 'mergeUnknownFields',
-     '==', 'info_', 'GeneratedMessage', 'Object'];
+  static final List<String> reservedNames = [
+    'hashCode',
+    'noSuchMethod',
+    'runtimeType',
+    'toString',
+    'fromBuffer',
+    'fromJson',
+    'hasRequiredFields',
+    'isInitialized',
+    'clear',
+    'getTagNumber',
+    'check',
+    'writeToBuffer',
+    'writeToCodedBufferWriter',
+    'mergeFromCodedBufferReader',
+    'mergeFromBuffer',
+    'writeToJson',
+    'mergeFromJson',
+    'writeToJsonMap',
+    'mergeFromJsonMap',
+    'addExtension',
+    'getExtension',
+    'setExtension',
+    'hasExtension',
+    'clearExtension',
+    'getField',
+    'setField',
+    'hasField',
+    'clearField',
+    'extensionsAreInitialized',
+    'mergeFromMessage',
+    'mergeUnknownFields',
+    '==',
+    'info_',
+    'GeneratedMessage',
+    'Object'
+  ];
 
   final String classname;
   final String fqname;
@@ -46,11 +99,14 @@ class MessageGenerator extends ProtobufContainer {
       DescriptorProto descriptor, ProtobufContainer parent, this._context)
       : _descriptor = descriptor,
         _parent = parent,
-        classname = (parent.classname == '') ?
-            descriptor.name : '${parent.classname}_${descriptor.name}',
-        fqname = (parent == null || parent.fqname == null) ? descriptor.name :
-            (parent.fqname == '.' ?
-                '.${descriptor.name}' : '${parent.fqname}.${descriptor.name}') {
+        classname = (parent.classname == '')
+            ? descriptor.name
+            : '${parent.classname}_${descriptor.name}',
+        fqname = (parent == null || parent.fqname == null)
+            ? descriptor.name
+            : (parent.fqname == '.'
+                ? '.${descriptor.name}'
+                : '${parent.fqname}.${descriptor.name}') {
     _context.register(this);
 
     for (EnumDescriptorProto e in _descriptor.enumType) {
@@ -91,9 +147,7 @@ class MessageGenerator extends ProtobufContainer {
       m.generate(out);
     }
 
-    out.addBlock('class ${classname} extends GeneratedMessage${SP}{',
-        '}', ()
-      {
+    out.addBlock('class ${classname} extends GeneratedMessage${SP}{', '}', () {
       out.addBlock(
           'static final BuilderInfo _i = new BuilderInfo(\'${classname}\')',
           ';', () {
@@ -236,8 +290,8 @@ class MessageGenerator extends ProtobufContainer {
       String clearIdentifier = "clear" + field.titlecaseFieldName;
       if (field.single) {
         while (_methodNames.contains(identifier) ||
-               _methodNames.contains(hasIdentifier) ||
-               _methodNames.contains(clearIdentifier)) {
+            _methodNames.contains(hasIdentifier) ||
+            _methodNames.contains(clearIdentifier)) {
           identifier += '_' + field.number.toString();
           hasIdentifier += '_' + field.number.toString();
           clearIdentifier += '_' + field.number.toString();

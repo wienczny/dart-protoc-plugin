@@ -23,8 +23,8 @@ class FileGenerator extends ProtobufContainer {
       messageGenerators.add(new MessageGenerator(messageType, this, _context));
     }
     for (FieldDescriptorProto extension in _fileDescriptor.extension) {
-      extensionGenerators.add(
-          new ExtensionGenerator(extension, this, _context));
+      extensionGenerators
+          .add(new ExtensionGenerator(extension, this, _context));
     }
   }
 
@@ -57,38 +57,36 @@ class FileGenerator extends ProtobufContainer {
 
     Uri filePath = new Uri.file(_fileDescriptor.name);
     return new CodeGeneratorResponse_File()
-        ..name = _context.outputConfiguration.outputPathFor(filePath).path
-        ..content = writer.toString();
+      ..name = _context.outputConfiguration.outputPathFor(filePath).path
+      ..content = writer.toString();
   }
 
   void generate(IndentingWriter out) {
     Uri filePath = new Uri.file(_fileDescriptor.name);
     if (filePath.isAbsolute) {
-        // protoc should never generate a file descriptor with an absolute path.
-        throw("FAILURE: File with an absolute path is not supported");
+      // protoc should never generate a file descriptor with an absolute path.
+      throw ("FAILURE: File with an absolute path is not supported");
     }
 
     String libraryName = _generateLibraryName(filePath);
 
-    out.println(
-      '///\n'
-      '//  Generated code. Do not modify.\n'
-      '///\n'
-      'library $libraryName;\n'
-      '\n'
-      "import 'package:fixnum/fixnum.dart';\n"
-      "import 'package:protobuf/protobuf.dart';"
-    );
+    out.println('///\n'
+        '//  Generated code. Do not modify.\n'
+        '///\n'
+        'library $libraryName;\n'
+        '\n'
+        "import 'package:fixnum/fixnum.dart';\n"
+        "import 'package:protobuf/protobuf.dart';");
 
     for (String import in _fileDescriptor.dependency) {
       Uri importPath = new Uri.file(import);
       if (importPath.isAbsolute) {
         // protoc should never generate an import with an absolute path.
-        throw("FAILURE: Import with absolute path is not supported");
+        throw ("FAILURE: Import with absolute path is not supported");
       }
       // Create a path from the current file to the imported proto.
-      Uri resolvedImport = _context.outputConfiguration.resolveImport(
-          importPath, filePath);
+      Uri resolvedImport =
+          _context.outputConfiguration.resolveImport(importPath, filePath);
       // Find the file generator for this import as it contains the
       // package name.
       FileGenerator fileGenerator = _context.lookupFile(import);
@@ -136,10 +134,9 @@ class FileGenerator extends ProtobufContainer {
 class GenerationContext {
   final GenerationOptions options;
   final OutputConfiguration outputConfiguration;
-  final Map<String, ProtobufContainer> _registry =
-      <String, ProtobufContainer>{};
-  final Map<String, FileGenerator> _files =
-      <String, FileGenerator>{};
+  final Map<String, ProtobufContainer> _registry = <String, ProtobufContainer>{
+  };
+  final Map<String, FileGenerator> _files = <String, FileGenerator>{};
 
   GenerationContext(this.options, this.outputConfiguration);
 

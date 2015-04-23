@@ -8,12 +8,11 @@ class ProtobufField {
   static final RegExp HEX_LITERAL_REGEX =
       new RegExp(r'^0x[0-9a-f]+$', multiLine: false, caseSensitive: false);
   static final RegExp INTEGER_LITERAL_REGEX = new RegExp(r'^[+-]?[0-9]+$');
-  static final RegExp DECIMAL_LITERAL_REGEX_A =
-      new RegExp(r'^[+-]?([0-9]*)\.[0-9]+(e[+-]?[0-9]+)?$',
-                 multiLine: false, caseSensitive: false);
-  static final RegExp DECIMAL_LITERAL_REGEX_B =
-      new RegExp(r'^[+-]?[0-9]+e[+-]?[0-9]+$', multiLine: false,
-                 caseSensitive: false);
+  static final RegExp DECIMAL_LITERAL_REGEX_A = new RegExp(
+      r'^[+-]?([0-9]*)\.[0-9]+(e[+-]?[0-9]+)?$',
+      multiLine: false, caseSensitive: false);
+  static final RegExp DECIMAL_LITERAL_REGEX_B = new RegExp(
+      r'^[+-]?[0-9]+e[+-]?[0-9]+$', multiLine: false, caseSensitive: false);
 
   final FieldDescriptorProto _field;
   final ProtobufContainer parent;
@@ -74,42 +73,56 @@ class ProtobufField {
       throw '$this';
     }
     switch (codedStreamType.toUpperCase()) {
-      case 'BOOL': return '${prefix}B';
-      case 'BYTES': return '${prefix}Y';
-      case 'STRING': return '${prefix}S';
-      case 'FLOAT': return '${prefix}F';
-      case 'DOUBLE': return '${prefix}D';
-      case 'ENUM': return '${prefix}E';
-      case 'GROUP': return '${prefix}G';
-      case 'INT32': return '${prefix}3';
-      case 'INT64': return '${prefix}6';
-      case 'UINT32': return '${prefix}U3';
-      case 'UINT64': return '${prefix}U6';
-      case 'SINT32': return '${prefix}S3';
-      case 'SINT64': return '${prefix}S6';
-      case 'FIXED32': return '${prefix}F3';
-      case 'FIXED64': return '${prefix}F6';
-      case 'SFIXED32': return '${prefix}SF3';
-      case 'SFIXED64': return '${prefix}SF6';
-      case 'MESSAGE': return '${prefix}M';
+      case 'BOOL':
+        return '${prefix}B';
+      case 'BYTES':
+        return '${prefix}Y';
+      case 'STRING':
+        return '${prefix}S';
+      case 'FLOAT':
+        return '${prefix}F';
+      case 'DOUBLE':
+        return '${prefix}D';
+      case 'ENUM':
+        return '${prefix}E';
+      case 'GROUP':
+        return '${prefix}G';
+      case 'INT32':
+        return '${prefix}3';
+      case 'INT64':
+        return '${prefix}6';
+      case 'UINT32':
+        return '${prefix}U3';
+      case 'UINT64':
+        return '${prefix}U6';
+      case 'SINT32':
+        return '${prefix}S3';
+      case 'SINT64':
+        return '${prefix}S6';
+      case 'FIXED32':
+        return '${prefix}F3';
+      case 'FIXED64':
+        return '${prefix}F6';
+      case 'SFIXED32':
+        return '${prefix}SF3';
+      case 'SFIXED64':
+        return '${prefix}SF6';
+      case 'MESSAGE':
+        return '${prefix}M';
     }
     throw 'Unknown type';
   }
 
-  ProtobufField._(
-      field, parent, this.context, this.typePackage, this.baseType,
+  ProtobufField._(field, parent, this.context, this.typePackage, this.baseType,
       this.typeString, this.prefixedBaseType, this.prefixedTypeString,
-      this.codedStreamType, this.repeats,
-      this.initialization, this.prefixedInitialization, this.required,
-      this.packed, this.packable) :
-          this._field = field,
-          this.parent = parent,
-          fqname = '${parent.fqname}.${field.name}';
+      this.codedStreamType, this.repeats, this.initialization,
+      this.prefixedInitialization, this.required, this.packed, this.packable)
+      : this._field = field,
+        this.parent = parent,
+        fqname = '${parent.fqname}.${field.name}';
 
-
-  factory ProtobufField(FieldDescriptorProto field,
-                        ProtobufContainer parent,
-                        GenerationContext context) {
+  factory ProtobufField(FieldDescriptorProto field, ProtobufContainer parent,
+      GenerationContext context) {
     bool required = field.label == FieldDescriptorProto_Label.LABEL_REQUIRED;
     bool repeats = field.label == FieldDescriptorProto_Label.LABEL_REPEATED;
     bool packed = false;
@@ -148,9 +161,9 @@ class ProtobufField {
         baseType = 'double';
         typeString = write('double');
         packable = true;
-        codedStreamType =
-            (field.type == FieldDescriptorProto_Type.TYPE_FLOAT) ?
-                'Float' : 'Double';
+        codedStreamType = (field.type == FieldDescriptorProto_Type.TYPE_FLOAT)
+            ? 'Float'
+            : 'Double';
         if (!repeats) {
           if (field.hasDefaultValue() &&
               ('0.0' != field.defaultValue || '0' != field.defaultValue)) {
@@ -164,8 +177,8 @@ class ProtobufField {
               initialization = '(${field.defaultValue}).toDouble()';
             } else if (INTEGER_LITERAL_REGEX.hasMatch(field.defaultValue)) {
               initialization = '${field.defaultValue}.0';
-            } else if (DECIMAL_LITERAL_REGEX_A.hasMatch(field.defaultValue)
-                      || DECIMAL_LITERAL_REGEX_B.hasMatch(field.defaultValue)) {
+            } else if (DECIMAL_LITERAL_REGEX_A.hasMatch(field.defaultValue) ||
+                DECIMAL_LITERAL_REGEX_B.hasMatch(field.defaultValue)) {
               initialization = '${field.defaultValue}';
             } else {
               throw new InvalidDefaultValue.double(
@@ -231,8 +244,8 @@ class ProtobufField {
             break;
         }
         if (!repeats) {
-          final defaultValue = field.hasDefaultValue() ?
-              field.defaultValue : '0';
+          final defaultValue =
+              field.hasDefaultValue() ? field.defaultValue : '0';
           if (defaultValue == '0') {
             initialization = 'Int64.ZERO';
           } else {
@@ -271,9 +284,9 @@ class ProtobufField {
           baseType = groupType.classname;
           typeString = write(groupType.classname);
           if (groupType.packageImportPrefix.isNotEmpty) {
-           prefixedBaseType = groupType.packageImportPrefix + '.' + baseType;
+            prefixedBaseType = groupType.packageImportPrefix + '.' + baseType;
           } else {
-           prefixedBaseType = baseType;
+            prefixedBaseType = baseType;
           }
           prefixedTypeString = write(prefixedBaseType);
           codedStreamType = 'Group';
@@ -318,8 +331,7 @@ class ProtobufField {
           packable = true;
           if (!repeats) {
             if (field.hasDefaultValue() && !field.defaultValue.isEmpty) {
-              initialization =
-                  '${baseType}.${field.defaultValue}';
+              initialization = '${baseType}.${field.defaultValue}';
               prefixedInitialization =
                   '${prefixedBaseType}.${field.defaultValue}';
             } else if (!enumType._canonicalValues.isEmpty) {
@@ -345,10 +357,10 @@ class ProtobufField {
     if (prefixedBaseType == null) prefixedBaseType = baseType;
     if (prefixedTypeString == null) prefixedTypeString = typeString;
     if (prefixedInitialization == null) prefixedInitialization = initialization;
-    return new ProtobufField._(
-        field, parent, context, typePackage, baseType, typeString,
-        prefixedBaseType, prefixedTypeString, codedStreamType, repeats,
-        initialization, prefixedInitialization, required, packed, packable);
+    return new ProtobufField._(field, parent, context, typePackage, baseType,
+        typeString, prefixedBaseType, prefixedTypeString, codedStreamType,
+        repeats, initialization, prefixedInitialization, required, packed,
+        packable);
   }
 
   // camelCase field name.

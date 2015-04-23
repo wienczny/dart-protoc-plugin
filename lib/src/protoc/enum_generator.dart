@@ -18,16 +18,17 @@ class EnumGenerator extends ProtobufContainer {
       <EnumValueDescriptorProto>[];
   final List<EnumAlias> _aliases = <EnumAlias>[];
 
-  EnumGenerator(
-      EnumDescriptorProto descriptor,
-      ProtobufContainer parent,
+  EnumGenerator(EnumDescriptorProto descriptor, ProtobufContainer parent,
       GenerationContext context)
-    : _parent = parent,
-      classname = (parent == null || parent is FileGenerator) ?
-          descriptor.name : '${parent.classname}_${descriptor.name}',
-      fqname = (parent == null || parent.fqname == null) ? descriptor.name :
-          (parent.fqname == '.' ?
-              '.${descriptor.name}' : '${parent.fqname}.${descriptor.name}') {
+      : _parent = parent,
+        classname = (parent == null || parent is FileGenerator)
+            ? descriptor.name
+            : '${parent.classname}_${descriptor.name}',
+        fqname = (parent == null || parent.fqname == null)
+            ? descriptor.name
+            : (parent.fqname == '.'
+                ? '.${descriptor.name}'
+                : '${parent.fqname}.${descriptor.name}') {
     for (EnumValueDescriptorProto value in descriptor.value) {
       EnumValueDescriptorProto canonicalValue =
           descriptor.value.firstWhere((v) => v.number == value.number);
@@ -47,9 +48,8 @@ class EnumGenerator extends ProtobufContainer {
       // -----------------------------------------------------------------
       // Define enum types.
       for (EnumValueDescriptorProto val in _canonicalValues) {
-        out.println(
-            'static const ${classname} ${val.name}${SP}=${SP}'
-                "const ${classname}._(${val.number},${SP}'${val.name}');");
+        out.println('static const ${classname} ${val.name}${SP}=${SP}'
+            "const ${classname}._(${val.number},${SP}'${val.name}');");
       }
       if (!_aliases.isEmpty) {
         out.println();
@@ -60,9 +60,8 @@ class EnumGenerator extends ProtobufContainer {
       }
       out.println();
 
-      out.println(
-        'static const List<${classname}> values${SP}='
-            '${SP}const${SP}<${classname}>${SP}[');
+      out.println('static const List<${classname}> values${SP}='
+          '${SP}const${SP}<${classname}>${SP}[');
       for (EnumValueDescriptorProto val in _canonicalValues) {
         out.println('${SP}${SP}${val.name},');
       }

@@ -23,38 +23,37 @@ class CodeGenerator extends ProtobufContainer {
   /// for details), and [outputConfiguration] can be used to override where
   /// generated files are created and how imports between generated files are
   /// constructed (see [OutputConfiguration] for details).
-  void generate({
-      Map<String, SingleOptionParser> optionParsers,
+  void generate({Map<String, SingleOptionParser> optionParsers,
       OutputConfiguration outputConfiguration}) {
     _streamIn
         .fold(new BytesBuilder(), (builder, data) => builder..add(data))
         .then((builder) => builder.takeBytes())
         .then((List<int> bytes) {
-            var request = new CodeGeneratorRequest.fromBuffer(bytes);
-            var response = new CodeGeneratorResponse();
+      var request = new CodeGeneratorRequest.fromBuffer(bytes);
+      var response = new CodeGeneratorResponse();
 
-            // Parse the options in the request. Return the errors is any.
-            var options = parseGenerationOptions(
-                request, response, optionParsers);
-            if (options == null) {
-              _streamOut.add(response.writeToBuffer());
-              return;
-            }
+      // Parse the options in the request. Return the errors is any.
+      var options = parseGenerationOptions(request, response, optionParsers);
+      if (options == null) {
+        _streamOut.add(response.writeToBuffer());
+        return;
+      }
 
-            var ctx = new GenerationContext(options, outputConfiguration == null
-                ? new DefaultOutputConfiguration() : outputConfiguration);
-            List<FileGenerator> generators = <FileGenerator>[];
-            for (FileDescriptorProto file in request.protoFile) {
-              var generator = new FileGenerator(file, this, ctx);
-              if (request.fileToGenerate.contains(file.name)) {
-                generators.add(generator);
-              }
-            }
+      var ctx = new GenerationContext(options, outputConfiguration == null
+          ? new DefaultOutputConfiguration()
+          : outputConfiguration);
+      List<FileGenerator> generators = <FileGenerator>[];
+      for (FileDescriptorProto file in request.protoFile) {
+        var generator = new FileGenerator(file, this, ctx);
+        if (request.fileToGenerate.contains(file.name)) {
+          generators.add(generator);
+        }
+      }
 
-            response.file.addAll(
-                generators.map((filegen) => filegen.generateResponse()));
-            _streamOut.add(response.writeToBuffer());
-        });
+      response.file
+          .addAll(generators.map((filegen) => filegen.generateResponse()));
+      _streamOut.add(response.writeToBuffer());
+    });
   }
 
   String get package => '';

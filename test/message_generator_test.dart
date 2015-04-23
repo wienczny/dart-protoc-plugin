@@ -67,50 +67,51 @@ class PhoneNumber extends GeneratedMessage {
 ''';
     FileDescriptorProto fd = new FileDescriptorProto();
     EnumDescriptorProto ed = new EnumDescriptorProto()
-        ..name = 'PhoneType'
-        ..value.addAll([
-            new EnumValueDescriptorProto()
-                ..name = 'MOBILE'
-                ..number = 0,
-            new EnumValueDescriptorProto()
-                ..name = 'HOME'
-                ..number = 1,
-            new EnumValueDescriptorProto()
-                ..name = 'WORK'
-                ..number = 2,
-            new EnumValueDescriptorProto()
-                ..name = 'BUSINESS'
-                ..number = 2]);
+      ..name = 'PhoneType'
+      ..value.addAll([
+        new EnumValueDescriptorProto()
+          ..name = 'MOBILE'
+          ..number = 0,
+        new EnumValueDescriptorProto()
+          ..name = 'HOME'
+          ..number = 1,
+        new EnumValueDescriptorProto()
+          ..name = 'WORK'
+          ..number = 2,
+        new EnumValueDescriptorProto()
+          ..name = 'BUSINESS'
+          ..number = 2
+      ]);
     DescriptorProto md = new DescriptorProto()
-        ..name = 'PhoneNumber'
-        ..field.addAll([
-            // required string number = 1;
-            new FieldDescriptorProto()
-                ..name = 'number'
-                ..number = 1
-                ..label = FieldDescriptorProto_Label.LABEL_REQUIRED
-                ..type = FieldDescriptorProto_Type.TYPE_STRING,
-            // optional PhoneType type = 2 [default = HOME];
-            new FieldDescriptorProto()
-                ..name = 'type'
-                ..number = 2
-                ..label = FieldDescriptorProto_Label.LABEL_OPTIONAL
-                ..type = FieldDescriptorProto_Type.TYPE_ENUM
-                ..typeName = '.PhoneNumber.PhoneType',
-            new FieldDescriptorProto()
-                ..name = 'name'
-                ..number = 3
-                ..label = FieldDescriptorProto_Label.LABEL_OPTIONAL
-                ..type = FieldDescriptorProto_Type.TYPE_STRING
-                ..defaultValue = r'$'
-            ])
-        ..enumType.add(ed);
+      ..name = 'PhoneNumber'
+      ..field.addAll([
+        // required string number = 1;
+        new FieldDescriptorProto()
+          ..name = 'number'
+          ..number = 1
+          ..label = FieldDescriptorProto_Label.LABEL_REQUIRED
+          ..type = FieldDescriptorProto_Type.TYPE_STRING,
+        // optional PhoneType type = 2 [default = HOME];
+        new FieldDescriptorProto()
+          ..name = 'type'
+          ..number = 2
+          ..label = FieldDescriptorProto_Label.LABEL_OPTIONAL
+          ..type = FieldDescriptorProto_Type.TYPE_ENUM
+          ..typeName = '.PhoneNumber.PhoneType',
+        new FieldDescriptorProto()
+          ..name = 'name'
+          ..number = 3
+          ..label = FieldDescriptorProto_Label.LABEL_OPTIONAL
+          ..type = FieldDescriptorProto_Type.TYPE_STRING
+          ..defaultValue = r'$'
+      ])
+      ..enumType.add(ed);
     MemoryWriter buffer = new MemoryWriter();
     IndentingWriter writer = new IndentingWriter('  ', buffer);
     var options = parseGenerationOptions(
         new CodeGeneratorRequest(), new CodeGeneratorResponse());
-    var context = new GenerationContext(options,
-        new DefaultOutputConfiguration());
+    var context =
+        new GenerationContext(options, new DefaultOutputConfiguration());
     FileGenerator fg = new FileGenerator(fd, null, context);
     MessageGenerator mg = new MessageGenerator(md, fg, context);
     mg.initializeFields();

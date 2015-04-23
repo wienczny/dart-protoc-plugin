@@ -31,14 +31,13 @@ abstract class OutputConfiguration {
 /// file for the output file (just replaces the extension), and that uses
 /// relative paths to resolve imports.
 class DefaultOutputConfiguration extends OutputConfiguration {
-
   Uri outputPathFor(Uri input) => replaceUriExtension(input);
 
   Uri resolveImport(Uri target, Uri source) {
     var builder = path.url;
     var targetPath = builder.fromUri(target);
     var sourceDir = builder.dirname(builder.fromUri(source));
-    return builder.toUri(replacePathExtension(
-        builder.relative(targetPath, from: sourceDir)));
+    return builder.toUri(
+        replacePathExtension(builder.relative(targetPath, from: sourceDir)));
   }
 }
