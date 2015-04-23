@@ -8,19 +8,19 @@ library generated_message_test;
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
+import '../out/protos/duplicate_names_import.pb.dart';
 import '../out/protos/google/protobuf/unittest.pb.dart';
 import '../out/protos/google/protobuf/unittest_import.pb.dart';
 import '../out/protos/google/protobuf/unittest_optimize_for.pb.dart';
 import '../out/protos/multiple_files_test.pb.dart';
 import '../out/protos/nested_extension.pb.dart';
 import '../out/protos/non_nested_extension.pb.dart';
-import '../out/protos/reserved_names.pb.dart';
-import '../out/protos/duplicate_names_import.pb.dart';
 import '../out/protos/package1.pb.dart' as p1;
 import '../out/protos/package2.pb.dart' as p2;
 import '../out/protos/package3.pb.dart' as p3;
-import '../out/protos/toplevel_import.pb.dart' as t;
+import '../out/protos/reserved_names.pb.dart';
 import '../out/protos/toplevel.pb.dart';
+import '../out/protos/toplevel_import.pb.dart' as t;
 
 import 'test_util.dart';
 
