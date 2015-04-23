@@ -8,7 +8,7 @@ library unknown_field_set_test;
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 
 import 'test_util.dart';
 
@@ -256,10 +256,10 @@ void main() {
     {
       TestAllExtensions message = new TestAllExtensions.fromBuffer(
           writer.toBuffer(), getExtensionRegistry());
-      expect(message.getExtension(Unittest.optionalNestedEnumExtension),
+      expect(message.getExtension(Test_pkg.optionalNestedEnumExtension),
           TestAllTypes_NestedEnum.BAR);
 
-      expect(message.getExtension(Unittest.repeatedNestedEnumExtension), [
+      expect(message.getExtension(Test_pkg.repeatedNestedEnumExtension), [
         TestAllTypes_NestedEnum.FOO,
         TestAllTypes_NestedEnum.BAZ
       ]);

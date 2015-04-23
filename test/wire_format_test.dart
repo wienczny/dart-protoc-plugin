@@ -8,7 +8,7 @@ library wire_format_test;
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 
 import 'test_util.dart';
 
@@ -64,12 +64,12 @@ void main() {
       ..myInt = make64(1)
       ..myString = 'foo'
       ..myFloat = 1.0
-      ..setExtension(Unittest.myExtensionInt, 23)
-      ..setExtension(Unittest.myExtensionString, 'bar');
+      ..setExtension(Test_pkg.myExtensionInt, 23)
+      ..setExtension(Test_pkg.myExtensionString, 'bar');
 
     ExtensionRegistry registry = new ExtensionRegistry()
-      ..add(Unittest.myExtensionInt)
-      ..add(Unittest.myExtensionString);
+      ..add(Test_pkg.myExtensionInt)
+      ..add(Test_pkg.myExtensionString);
 
     TestFieldOrderings dest =
         new TestFieldOrderings.fromBuffer(source.writeToBuffer(), registry);

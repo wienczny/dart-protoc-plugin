@@ -9,7 +9,7 @@ import 'package:unittest/unittest.dart';
 
 import 'test_util.dart';
 
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 
 void main() {
   TestRequired TEST_REQUIRED_UNINITIALIZED = new TestRequired();

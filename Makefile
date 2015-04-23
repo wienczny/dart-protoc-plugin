@@ -23,7 +23,7 @@ PLUGIN_PATH=$(OUTPUT_DIR)/$(PLUGIN_NAME)
 TEST_PROTO_LIST = \
 						 google/protobuf/unittest_import \
 						 google/protobuf/unittest_optimize_for \
-						 google/protobuf/unittest \
+						 google/protobuf/test_pkg \
 						 multiple_files_test \
 						 nested_extension \
 						 non_nested_extension \

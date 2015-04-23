@@ -36,15 +36,15 @@
 
 syntax = "proto2";
 
-import "google/protobuf/unittest.proto";
+import "google/protobuf/test_pkg.proto";
 
-package protobuf_unittest;
+package protobuf_unittest_optimize_for;
 
 option optimize_for = CODE_SIZE;
 
 message TestOptimizedForSize {
   optional int32 i = 1;
-  optional ForeignMessage msg = 19;
+  optional test_pkg.ForeignMessage msg = 19;
 
   extensions 1000 to max;
 
@@ -57,7 +57,7 @@ message TestOptimizedForSize {
 message TestRequiredOptimizedForSize {
   required int32 x = 1;
 }
- 
+
 message TestOptionalOptimizedForSize {
   optional TestRequiredOptimizedForSize o = 1;
 }

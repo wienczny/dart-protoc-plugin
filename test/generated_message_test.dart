@@ -9,7 +9,7 @@ import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
 import '../out/protos/duplicate_names_import.pb.dart';
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 import '../out/protos/google/protobuf/unittest_import.pb.dart';
 import '../out/protos/google/protobuf/unittest_optimize_for.pb.dart';
 import '../out/protos/multiple_files_test.pb.dart';
@@ -247,14 +247,14 @@ void main() {
   test('testClearExtension', () {
     // clearExtension() is not actually used in test_util, so try it manually.
     TestAllExtensions message = new TestAllExtensions();
-    message.setExtension(Unittest.optionalInt32Extension, 1);
-    message.clearExtension(Unittest.optionalInt32Extension);
-    expect(message.hasExtension(Unittest.optionalInt32Extension), isFalse);
+    message.setExtension(Test_pkg.optionalInt32Extension, 1);
+    message.clearExtension(Test_pkg.optionalInt32Extension);
+    expect(message.hasExtension(Test_pkg.optionalInt32Extension), isFalse);
 
     message = new TestAllExtensions();
-    message.addExtension(Unittest.repeatedInt32Extension, 1);
-    message.clearExtension(Unittest.repeatedInt32Extension);
-    expect(message.getExtension(Unittest.repeatedInt32Extension).length, 0);
+    message.addExtension(Test_pkg.repeatedInt32Extension, 1);
+    message.clearExtension(Test_pkg.repeatedInt32Extension);
+    expect(message.getExtension(Test_pkg.repeatedInt32Extension).length, 0);
   });
 
   test('testExtensionCopy', () {
@@ -263,10 +263,10 @@ void main() {
 
   test('testExtensionMergeFrom', () {
     TestAllExtensions original = new TestAllExtensions();
-    original.setExtension(Unittest.optionalInt32Extension, 1);
+    original.setExtension(Test_pkg.optionalInt32Extension, 1);
     TestAllExtensions clone = original.clone();
-    expect(clone.hasExtension(Unittest.optionalInt32Extension), isTrue);
-    expect(clone.getExtension(Unittest.optionalInt32Extension), 1);
+    expect(clone.hasExtension(Test_pkg.optionalInt32Extension), isTrue);
+    expect(clone.getExtension(Test_pkg.optionalInt32Extension), 1);
   });
 
   test('testMultipleFilesOption', () {
@@ -404,11 +404,11 @@ void main() {
   test('testBadExtension', () {
     TestAllTypes message = new TestAllTypes();
     expect(() {
-      message.setExtension(Unittest.optionalInt32Extension, 101);
+      message.setExtension(Test_pkg.optionalInt32Extension, 101);
     }, throwsArgumentError);
 
     expect(() {
-      message.getExtension(Unittest.optionalInt32Extension);
+      message.getExtension(Test_pkg.optionalInt32Extension);
     }, throwsArgumentError);
   });
 

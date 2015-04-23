@@ -8,7 +8,7 @@ library json_test;
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 
 import 'test_util.dart';
 

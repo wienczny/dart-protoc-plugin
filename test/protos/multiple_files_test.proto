@@ -38,9 +38,9 @@ syntax = "proto2";
 // See:  http://go/proto2-generic-services-default
 option java_generic_services = true;   // auto-added
 
-import "google/protobuf/unittest.proto";
+import "google/protobuf/test_pkg.proto";
 
-package protobuf_unittest;
+package multiple_files_test;
 
 option java_multiple_files = true;
 option java_outer_classname = "MultipleFilesTestProto";
@@ -53,7 +53,7 @@ message MessageWithNoOuter {
     BAZ = 3;
   }
   optional NestedMessage nested = 1;
-  repeated TestAllTypes foreign = 2;
+  repeated test_pkg.TestAllTypes foreign = 2;
   optional NestedEnum nested_enum = 3;
   optional EnumWithNoOuter foreign_enum = 4;
 }
@@ -64,9 +64,9 @@ enum EnumWithNoOuter {
 }
 
 service ServiceWithNoOuter {
-  rpc Foo(MessageWithNoOuter) returns(TestAllTypes);
+  rpc Foo(MessageWithNoOuter) returns(test_pkg.TestAllTypes);
 }
 
-extend TestAllExtensions {
+extend test_pkg.TestAllExtensions {
   optional int32 extension_with_outer = 1234567;
 }

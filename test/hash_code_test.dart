@@ -8,7 +8,7 @@ library hash_code_tests;
 import 'package:fixnum/fixnum.dart';
 import 'package:unittest/unittest.dart';
 
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 
 void main() {
   test('testHashCodeEmptyMessage', () {

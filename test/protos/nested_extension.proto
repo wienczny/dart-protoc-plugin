@@ -37,10 +37,10 @@ syntax = "proto2";
 
 import "non_nested_extension.proto";
 
-package protobuf_unittest;
+package nested_extensions;
 
 message MyNestedExtension {
-  extend MessageToBeExtended {
-    optional MessageToBeExtended recursiveExtension = 2;
+  extend non_nested_extensions.MessageToBeExtended {
+    optional non_nested_extensions.MessageToBeExtended recursiveExtension = 2;
   }
 }

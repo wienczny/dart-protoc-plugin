@@ -9,7 +9,7 @@ import 'package:fixnum/fixnum.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
-import '../out/protos/google/protobuf/unittest.pb.dart';
+import '../out/protos/google/protobuf/test_pkg.pb.dart';
 
 // [ArgumentError] in production mode, [TypeError] in checked.
 final invalidArgumentException =
@@ -217,7 +217,7 @@ void main() {
 
     expect(() {
       new TestAllExtensions().setExtension(
-          Unittest.optionalInt32Extension, '101');
+          Test_pkg.optionalInt32Extension, '101');
     }, throwsArgumentError);
   });
 }

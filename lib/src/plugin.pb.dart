@@ -3,7 +3,6 @@
 ///
 library proto2.compiler;
 
-import 'package:fixnum/fixnum.dart';
 import 'package:protobuf/protobuf.dart';
 import 'descriptor.pb.dart' as proto2;
 

@@ -32,7 +32,7 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 //
-// A proto file which is imported by unittest.proto to test importing.
+// A proto file which is imported by test_pkg.proto to test importing.
 // We don't put this in a package within proto2 because we need to make sure
 // that the generated code doesn't depend on being in the proto2 namespace.
 // In test_util.h we do
@@ -40,7 +40,7 @@
 
 syntax = "proto2";
 
-package protobuf_unittest_import;
+package unittest_import;
 
 option optimize_for = SPEED;
 
